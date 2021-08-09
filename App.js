@@ -1,10 +1,11 @@
 import 'react-native-gesture-handler';
 import React, { useEffect, useState } from 'react';
 import { firebase } from './src/firebase/config';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { LoginScreen, HomeScreen, RegistrationScreen } from './src/screens';
 import { decode, encode } from 'base-64';
+import { Button } from 'react-native';
 
 if (!global.btoa) {
   global.btoa = encode;
@@ -41,6 +42,19 @@ export default function App() {
     });
   }, []);
 
+  // const navigation = useNavigation();
+  // const onLogoutPress = () => {
+  //   firebase
+  //     .auth()
+  //     .signOut()
+  //     .then(() => {
+  //       navigation.navigate('Login');
+  //     })
+  //     .catch(error => {
+  //       // An error happened.
+  //     });
+  // };
+
   if (loading) {
     return <></>;
   }
@@ -59,7 +73,18 @@ export default function App() {
         {/*    <Stack.Screen name="Registration" component={RegistrationScreen} />*/}
         {/*  </>*/}
         {/*)}*/}
-        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={({ navigation }) => ({
+            headerRight: () => (
+              <Button
+                onPress={() => navigation.navigate('Login')}
+                title="Logout"
+              />
+            ),
+          })}
+        />
         <Stack.Screen
           name="Login"
           component={LoginScreen}
