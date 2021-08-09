@@ -4,6 +4,8 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
   },
   title: {},
   logo: {
@@ -11,7 +13,7 @@ export default StyleSheet.create({
     height: 120,
     width: 90,
     alignSelf: 'center',
-    margin: 30,
+    marginBottom: 30,
   },
   input: {
     height: 48,
